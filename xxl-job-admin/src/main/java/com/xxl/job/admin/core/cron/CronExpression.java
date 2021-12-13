@@ -474,14 +474,14 @@ public final class CronExpression implements Serializable, Cloneable {
 
                 // throw an exception if L is used with other days of the month
                 if(exprOn == DAY_OF_MONTH && expr.indexOf('L') != -1 && expr.length() > 1 && expr.contains(",")) {
-                    throw new ParseException("Support for specifying 'L' and 'LW' with other days of the month is not implemented", -1);
+                    throw new ParseException("express: "+expression+" Support for specifying 'L' and 'LW' with other days of the month is not implemented", -1);
                 }
                 // throw an exception if L is used with other days of the week
                 if(exprOn == DAY_OF_WEEK && expr.indexOf('L') != -1 && expr.length() > 1  && expr.contains(",")) {
-                    throw new ParseException("Support for specifying 'L' with other days of the week is not implemented", -1);
+                    throw new ParseException("express: "+expression+" Support for specifying 'L' with other days of the week is not implemented", -1);
                 }
                 if(exprOn == DAY_OF_WEEK && expr.indexOf('#') != -1 && expr.indexOf('#', expr.indexOf('#') +1) != -1) {
-                    throw new ParseException("Support for specifying multiple \"nth\" days is not implemented.", -1);
+                    throw new ParseException("express: "+expression+" Support for specifying multiple \"nth\" days is not implemented.", -1);
                 }
                 
                 StringTokenizer vTok = new StringTokenizer(expr, ",");
@@ -494,7 +494,7 @@ public final class CronExpression implements Serializable, Cloneable {
             }
 
             if (exprOn <= DAY_OF_WEEK) {
-                throw new ParseException("Unexpected end of expression.",
+                throw new ParseException("express: "+expression+" Unexpected end of expression.",
                             expression.length());
             }
 
@@ -511,14 +511,13 @@ public final class CronExpression implements Serializable, Cloneable {
 
             if (!dayOfMSpec || dayOfWSpec) {
                 if (!dayOfWSpec || dayOfMSpec) {
-                    throw new ParseException(
-                            "Support for specifying both a day-of-week AND a day-of-month parameter is not implemented.", 0);
+                    throw new ParseException("express: "+expression+" Support for specifying both a day-of-week AND a day-of-month parameter is not implemented.", 0);
                 }
             }
         } catch (ParseException pe) {
             throw pe;
         } catch (Exception e) {
-            throw new ParseException("Illegal cron expression format ("
+            throw new ParseException("express: "+expression+" Illegal cron expression format ("
                     + e.toString() + ")", 0);
         }
     }
